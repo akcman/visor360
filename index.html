@@ -1,56 +1,83 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
   <head>
-    <meta charset="UTF-8"> <!-- Establece codificación de caracteres UTF-8 -->
-    <title>Visor 360 Interactivo</title> <!-- Título de la pestaña del navegador -->
-
-    <!-- Carga la librería de A-Frame desde su CDN oficial -->
+    <meta charset="utf-8" />
+    <title>Visor VR Interactivo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-
-    <!-- Estilo CSS para el menú de botones -->
-    <style>
-      #menu {
-        position: absolute;            /* Coloca el menú sobre la escena VR */
-        top: 20px;                     /* Distancia desde el borde superior */
-        left: 20px;                    /* Distancia desde el borde izquierdo */
-        z-index: 999;                  /* Asegura que esté al frente */
-        background: rgba(255, 255, 255, 0.7); /* Fondo blanco semitransparente */
-        padding: 10px;                 /* Espaciado interno */
-        border-radius: 10px;           /* Bordes redondeados */
-      }
-
-      button {
-        margin: 5px;                   /* Espacio entre botones */
-        padding: 10px;                 /* Tamaño del botón */
-        font-size: 16px;               /* Tamaño del texto */
-      }
-    </style>
   </head>
-
   <body>
-    <!-- Menú con botones para cambiar de imagen -->
-    <div id="menu">
-      <!-- Al hacer clic, se llama a la función cambiarImagen con la imagen 1 -->
-      <button onclick="cambiarImagen('imagen1.jpg')">Escena 1</button>
-
-      <!-- Al hacer clic, se cambia a la imagen 2 -->
-      <button onclick="cambiarImagen('imagen2.jpg')">Escena 2</button>
-    </div>
-
-    <!-- Escena principal de A-Frame -->
     <a-scene>
-      <!-- Componente tipo cielo (sky), donde se muestra la imagen 360° -->
-      <!-- Tiene un ID para poder cambiar dinámicamente su imagen -->
-      <!-- La rotación es opcional, aquí gira un poco el punto inicial de vista -->
+      <!-- Imagen inicial 360° -->
       <a-sky id="panorama" src="imagen1.jpg" rotation="0 -130 0"></a-sky>
+
+      <!-- Botón flotante para mostrar menú (se ve en VR) -->
+      <a-entity id="menu-button" geometry="primitive: plane; height: 0.3; width: 0.8"
+                position="0 1.6 -2"
+                material="color: #007BFF"
+                text="value: MENÚ; align: center; color: white; width: 4"
+                class="clickable"
+                event-set__enter="_event: mouseenter; material.color: #0056b3"
+                event-set__leave="_event: mouseleave; material.color: #007BFF"
+                onclick="mostrarMenu()">
+      </a-entity>
+
+      <!-- Menú de selección (inicialmente oculto) -->
+      <a-entity id="menu-vr" visible="false">
+        <a-entity geometry="primitive: plane; height: 1; width: 1.5"
+                  position="0 1.6 -2"
+                  material="color: black; opacity: 0.8">
+        </a-entity>
+
+        <!-- Botón Escena 1 -->
+        <a-entity geometry="primitive: plane; height: 0.3; width: 1.2"
+                  position="0 1.8 -1.99"
+                  material="color: #28a745"
+                  text="value: Ir a Escena 1; align: center; color: white; width: 4"
+                  class="clickable"
+                  onclick="cambiarImagen('imagen1.jpg')">
+        </a-entity>
+
+        <!-- Botón Escena 2 -->
+        <a-entity geometry="primitive: plane; height: 0.3; width: 1.2"
+                  position="0 1.5 -1.99"
+                  material="color: #17a2b8"
+                  text="value: Ir a Escena 2; align: center; color: white; width: 4"
+                  class="clickable"
+                  onclick="cambiarImagen('imagen2.jpg')">
+        </a-entity>
+
+        <!-- Botón Salir del menú -->
+        <a-entity geometry="primitive: plane; height: 0.3; width: 1.2"
+                  position="0 1.2 -1.99"
+                  material="color: #dc3545"
+                  text="value: Salir; align: center; color: white; width: 4"
+                  class="clickable"
+                  onclick="ocultarMenu()">
+        </a-entity>
+      </a-entity>
+
+      <!-- Cámara para VR -->
+      <a-entity camera look-controls>
+        <a-cursor></a-cursor>
+      </a-entity>
     </a-scene>
 
-    <!-- Script en JavaScript para cambiar la imagen panorámica -->
+    <!-- Script para manejo del menú -->
     <script>
-      // Función que cambia la imagen del componente <a-sky>
       function cambiarImagen(src) {
-        // Selecciona el elemento con id="panorama" y le cambia el atributo 'src'
         document.getElementById('panorama').setAttribute('src', src);
+        ocultarMenu();
+      }
+
+      function mostrarMenu() {
+        document.getElementById('menu-vr').setAttribute('visible', true);
+        document.getElementById('menu-button').setAttribute('visible', false);
+      }
+
+      function ocultarMenu() {
+        document.getElementById('menu-vr').setAttribute('visible', false);
+        document.getElementById('menu-button').setAttribute('visible', true);
       }
     </script>
   </body>
