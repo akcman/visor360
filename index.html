@@ -2,68 +2,93 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Visor VR Interactivo</title>
+    <title>Tour Virtual TecNM Misantla</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
   </head>
   <body>
     <a-scene>
-      <!-- Imagen inicial 360° -->
-      <a-sky id="panorama" src="imagen1.jpg" rotation="0 -130 0"></a-sky>
+      <!-- Imagen inicial: principal -->
+      <a-sky id="panorama" src="Principal.jpg" rotation="0 -130 0"></a-sky>
 
-      <!-- Botón flotante para mostrar menú (se ve en VR) -->
-      <a-entity id="menu-button" geometry="primitive: plane; height: 0.3; width: 0.8"
-                position="0 1.6 -2"
-                material="color: #007BFF"
-                text="value: MENÚ; align: center; color: white; width: 4"
-                class="clickable"
-                event-set__enter="_event: mouseenter; material.color: #0056b3"
-                event-set__leave="_event: mouseleave; material.color: #007BFF"
-                onclick="mostrarMenu()">
-      </a-entity>
-
-      <!-- Menú de selección (inicialmente oculto) -->
-      <a-entity id="menu-vr" visible="false">
-        <a-entity geometry="primitive: plane; height: 1; width: 1.5"
-                  position="0 1.6 -2"
-                  material="color: black; opacity: 0.8">
+      <!-- Cámara y control -->
+      <a-entity id="cameraRig" position="0 1.6 0">
+        <a-entity camera look-controls wasd-controls>
+          <a-entity cursor="fuse: true; fuseTimeout: 1000"
+                    position="0 0 -1"
+                    geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02"
+                    material="color: white; shader: flat">
+          </a-entity>
         </a-entity>
 
-        <!-- Botón Escena 1 -->
-        <a-entity geometry="primitive: plane; height: 0.3; width: 1.2"
-                  position="0 1.8 -1.99"
+        <!-- Botón MENÚ parte superior derecha -->
+        <a-entity id="menuButton"
+                  geometry="primitive: plane; width: 0.6; height: 0.25"
+                  material="color: #007BFF"
+                  text="value: MENÚ; align: center; color: white; width: 3"
+                  position="0.9 0.6 -1.5"
+                  class="clickable"
+                  onclick="mostrarMenu()">
+        </a-entity>
+      </a-entity>
+
+      <!-- Menú VR flotante -->
+      <a-entity id="menu-vr" visible="false" position="0 1.6 -2">
+        <a-plane width="2.2" height="2.5" color="black" opacity="0.8"></a-plane>
+
+        <!-- Botones del menú -->
+        <a-entity geometry="primitive: plane; height: 0.25; width: 1.8"
+                  position="0 1.05 0.01"
                   material="color: #28a745"
-                  text="value: Ir a Escena 1; align: center; color: white; width: 4"
+                  text="value: Aula 11; align: center; color: white"
                   class="clickable"
-                  onclick="cambiarImagen('imagen1.jpg')">
-        </a-entity>
+                  onclick="cambiarImagen('Aula_11.jpg')"></a-entity>
 
-        <!-- Botón Escena 2 -->
-        <a-entity geometry="primitive: plane; height: 0.3; width: 1.2"
-                  position="0 1.5 -1.99"
+        <a-entity geometry="primitive: plane; height: 0.25; width: 1.8"
+                  position="0 0.75 0.01"
                   material="color: #17a2b8"
-                  text="value: Ir a Escena 2; align: center; color: white; width: 4"
+                  text="value: Cafetería; align: center; color: white"
                   class="clickable"
-                  onclick="cambiarImagen('imagen2.jpg')">
-        </a-entity>
+                  onclick="cambiarImagen('Cafetería_.jpg')"></a-entity>
 
-        <!-- Botón Salir del menú -->
-        <a-entity geometry="primitive: plane; height: 0.3; width: 1.2"
-                  position="0 1.2 -1.99"
-                  material="color: #dc3545"
-                  text="value: Salir; align: center; color: white; width: 4"
+        <a-entity geometry="primitive: plane; height: 0.25; width: 1.8"
+                  position="0 0.45 0.01"
+                  material="color: #ffc107"
+                  text="value: Domo; align: center; color: black"
                   class="clickable"
-                  onclick="ocultarMenu()">
-        </a-entity>
-      </a-entity>
+                  onclick="cambiarImagen('Domo.jpg')"></a-entity>
 
-      <!-- Cámara para VR -->
-      <a-entity camera look-controls>
-        <a-cursor></a-cursor>
+        <a-entity geometry="primitive: plane; height: 0.25; width: 1.8"
+                  position="0 0.15 0.01"
+                  material="color: #fd7e14"
+                  text="value: Estacionamiento; align: center; color: black"
+                  class="clickable"
+                  onclick="cambiarImagen('estacionamiento_maestros.jpg')"></a-entity>
+
+        <a-entity geometry="primitive: plane; height: 0.25; width: 1.8"
+                  position="0 -0.15 0.01"
+                  material="color: #20c997"
+                  text="value: Campo de fútbol; align: center; color: black"
+                  class="clickable"
+                  onclick="cambiarImagen('campo_futbol.jpg')"></a-entity>
+
+        <a-entity geometry="primitive: plane; height: 0.25; width: 1.8"
+                  position="0 -0.45 0.01"
+                  material="color: #6f42c1"
+                  text="value: Página Principal; align: center; color: white"
+                  class="clickable"
+                  onclick="cambiarImagen('Principal.jpg')"></a-entity>
+
+        <a-entity geometry="primitive: plane; height: 0.25; width: 1.8"
+                  position="0 -0.75 0.01"
+                  material="color: gray"
+                  text="value: Cerrar Menú; align: center; color: white"
+                  class="clickable"
+                  onclick="ocultarMenu()"></a-entity>
       </a-entity>
     </a-scene>
 
-    <!-- Script para manejo del menú -->
+    <!-- Lógica de interacción -->
     <script>
       function cambiarImagen(src) {
         document.getElementById('panorama').setAttribute('src', src);
@@ -72,12 +97,10 @@
 
       function mostrarMenu() {
         document.getElementById('menu-vr').setAttribute('visible', true);
-        document.getElementById('menu-button').setAttribute('visible', false);
       }
 
       function ocultarMenu() {
         document.getElementById('menu-vr').setAttribute('visible', false);
-        document.getElementById('menu-button').setAttribute('visible', true);
       }
     </script>
   </body>
