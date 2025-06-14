@@ -1,116 +1,119 @@
-
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8">
-    <title>Visor 360 Interactivo</title>
-    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<head>
+  <meta charset="UTF-8">
+  <title>Visor 360 Interactivo</title>
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    <style>
-      :root {
-        --primary-color: #2196F3;
-        --hover-color: #1976D2;
-        --text-color: #ffffff;
-        --menu-bg: rgba(33, 33, 33, 0.85);
-        --button-bg: rgba(255, 255, 255, 0.1);
-        --button-hover: rgba(255, 255, 255, 0.2);
-        --transition-speed: 0.3s;
-      }
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Poppins', sans-serif;
-        overflow: hidden;
-      }
-      #menu {
-        position: absolute;
-        top: 50%;
-        left: 30px;
-        transform: translateY(-50%);
-        z-index: 999;
-        background: var(--menu-bg);
-        padding: 25px;
-        border-radius: 20px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        max-height: 400px;
-        overflow-y: auto;
-      }
-      button {
-        background: var(--button-bg);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: var(--text-color);
-        padding: 15px 20px;
-        border-radius: 12px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: 500;
-        transition: all var(--transition-speed) ease;
-        text-align: left;
-        display: flex;
-        align-items: center;
-      }
-      button:hover {
-        background: var(--button-hover);
-        border-color: var(--primary-color);
-      }
-      button.active {
-        background: var(--primary-color);
-        border-color: var(--primary-color);
-      }
-    </style>
-  </head>
-  <body>
-    <div id="menu">
-      <div class="menu-title">Escenas Disponibles</div>
-      <button onclick="cambiarImagen('Aula_11.jpg')">Aula 11</button>
-      <button onclick="cambiarImagen('Biblioteca.jpg')">Biblioteca</button>
-      <button onclick="cambiarImagen('Cafetería.jpg')">Cafetería</button>
-      <button onclick="cambiarImagen('Centro_computo.jpg')">Centro de Cómputo</button>
-      <button onclick="cambiarImagen('Domo.jpg')">Domo</button>
-      <button onclick="cambiarImagen('Explanada.jpg')">Explanada</button>
-      <button onclick="cambiarImagen('Exterior_de_posgrado.jpg')">Exterior Posgrado</button>
-      <button onclick="cambiarImagen('Interior_de_posgrado.jpg')">Interior Posgrado</button>
-      <button onclick="cambiarImagen('Lab_Electro.jpg')">Lab. Electrónica</button>
-      <button onclick="cambiarImagen('Principal.jpg')">Entrada Principal</button>
-      <button onclick="cambiarImagen('Sala_A.jpg')">Sala A</button>
-      <button onclick="cambiarImagen('campo_futbol.jpg')">Campo de Fútbol</button>
-      <button onclick="cambiarImagen('edificio_h.jpg')">Edificio H</button>
-      <button onclick="cambiarImagen('escaleras.jpg')">Escaleras</button>
-      <button onclick="cambiarImagen('estacionamiento_maestros.jpg')">Estac. Maestros</button>
-    </div>
-    <a-scene>
-      <a-entity id="rig" movement-controls="fly: true; speed: 0.5">
-        <a-entity id="camera" position="0 1.6 0" camera look-controls="reverseMouseDrag: true">
-          <a-entity cursor="fuse: false; rayOrigin: mouse"
-                    raycaster="objects: .clickable"
-                    position="0 0 -1"
-                    geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-                    material="color: white; shader: flat">
-          </a-entity>
+  <style>
+    :root {
+      --primary-color: #2196F3;
+      --hover-color: #1976D2;
+      --text-color: #ffffff;
+      --menu-bg: rgba(33, 33, 33, 0.85);
+      --button-bg: rgba(255, 255, 255, 0.1);
+      --button-hover: rgba(255, 255, 255, 0.2);
+      --transition-speed: 0.3s;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+    #menu {
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      transform: translateY(-50%);
+      z-index: 999;
+      background: var(--menu-bg);
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    button {
+      background: var(--button-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      padding: 12px 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all var(--transition-speed) ease;
+      text-align: left;
+      display: flex;
+      align-items: center;
+    }
+    button:hover {
+      background: var(--button-hover);
+      border-color: var(--primary-color);
+    }
+    button.active {
+      background: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+  <div id="menu">
+    <div class="menu-title" style="color:white;font-weight:bold;margin-bottom:10px;">Escenas Disponibles</div>
+    <button onclick="cambiarImagen('Aula_11.jpg')">Aula 11</button>
+    <button onclick="cambiarImagen('Biblioteca.jpg')">Biblioteca</button>
+    <button onclick="cambiarImagen('Cafetería_.jpg')">Cafetería</button>
+    <button onclick="cambiarImagen('Centro_computo.jpg')">Centro de Cómputo</button>
+    <button onclick="cambiarImagen('Domo.jpg')">Domo</button>
+    <button onclick="cambiarImagen('Explanada.jpg')">Explanada</button>
+    <button onclick="cambiarImagen('Exterior_de_posgrado.jpg')">Exterior Posgrado</button>
+    <button onclick="cambiarImagen('Interior_de_posgrado.jpg')">Interior Posgrado</button>
+    <button onclick="cambiarImagen('Lab_Bioquimica.jpg')">Lab. Bioquímica</button>
+    <button onclick="cambiarImagen('Lab_Electro.jpg')">Lab. Electrónica</button>
+    <button onclick="cambiarImagen('Principal.jpg')">Entrada Principal</button>
+    <button onclick="cambiarImagen('Sala_A.jpg')">Sala A</button>
+    <button onclick="cambiarImagen('campo_futbol.jpg')">Campo de Fútbol</button>
+    <button onclick="cambiarImagen('edificio_h.jpg')">Edificio H</button>
+    <button onclick="cambiarImagen('escaleras.jpg')">Escaleras</button>
+    <button onclick="cambiarImagen('estacionamiento_maestros.jpg')">Estac. Maestros</button>
+  </div>
+
+  <a-scene>
+    <a-entity id="rig" movement-controls="fly: true; speed: 0.5">
+      <a-entity id="camera" position="0 1.6 0" camera look-controls="reverseMouseDrag: true">
+        <a-entity cursor="fuse: false; rayOrigin: mouse"
+                  raycaster="objects: .clickable"
+                  position="0 0 -1"
+                  geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                  material="color: white; shader: flat">
         </a-entity>
       </a-entity>
-      <a-sky id="panorama" src="Aula_11.jpg" rotation="0 -130 0"></a-sky>
-      <a-entity id="leftHand" oculus-touch-controls="hand: left"></a-entity>
-      <a-entity id="rightHand" oculus-touch-controls="hand: right"></a-entity>
-    </a-scene>
-    <script>
-      function cambiarImagen(src) {
-        document.getElementById('panorama').setAttribute('src', src);
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => {
-          button.classList.remove('active');
-          if (button.innerText.replace(/\s+/g, '').includes(src.split('.')[0])) {
-            button.classList.add('active');
-          }
-        });
-      }
-    </script>
-  </body>
+    </a-entity>
+
+    <a-sky id="panorama" src="Aula_11.jpg" rotation="0 -130 0"></a-sky>
+    <a-entity id="leftHand" oculus-touch-controls="hand: left"></a-entity>
+    <a-entity id="rightHand" oculus-touch-controls="hand: right"></a-entity>
+  </a-scene>
+
+  <script>
+    function cambiarImagen(src) {
+      document.getElementById('panorama').setAttribute('src', src);
+      const buttons = document.querySelectorAll('button');
+      buttons.forEach(button => {
+        button.classList.remove('active');
+        if (button.innerText.replace(/\s+/g, '').includes(src.split('.')[0])) {
+          button.classList.add('active');
+        }
+      });
+    }
+  </script>
+</body>
 </html>
