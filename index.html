@@ -98,7 +98,10 @@
       </a-entity>
     </a-entity>
 
+    <!-- Imagen de inicio -->
     <a-sky id="panorama" src="Aula_11.jpg" rotation="0 -130 0"></a-sky>
+
+    <!-- Controladores para VR -->
     <a-entity id="leftHand" oculus-touch-controls="hand: left"></a-entity>
     <a-entity id="rightHand" oculus-touch-controls="hand: right"></a-entity>
   </a-scene>
@@ -109,7 +112,7 @@
       const buttons = document.querySelectorAll('button');
       buttons.forEach(button => {
         button.classList.remove('active');
-        if (button.innerText.replace(/\s+/g, '').includes(src.split('.')[0])) {
+        if (button.getAttribute('onclick').includes(src)) {
           button.classList.add('active');
         }
       });
