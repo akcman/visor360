@@ -4,23 +4,11 @@
   <meta charset="UTF-8">
   <title>Visor 360 Interactivo</title>
   <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
   <style>
-    :root {
-      --primary-color: #2196F3;
-      --hover-color: #1976D2;
-      --text-color: #ffffff;
-      --menu-bg: rgba(33, 33, 33, 0.85);
-      --button-bg: rgba(255, 255, 255, 0.1);
-      --button-hover: rgba(255, 255, 255, 0.2);
-      --transition-speed: 0.3s;
-    }
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Poppins', sans-serif;
+      font-family: sans-serif;
       overflow: hidden;
     }
     #menu {
@@ -29,67 +17,59 @@
       left: 30px;
       transform: translateY(-50%);
       z-index: 999;
-      background: var(--menu-bg);
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+      background: rgba(0,0,0,0.8);
+      padding: 20px;
+      border-radius: 15px;
       max-height: 90vh;
       overflow-y: auto;
     }
     button {
-      background: var(--button-bg);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--text-color);
-      padding: 12px 20px;
-      border-radius: 12px;
-      cursor: pointer;
+      display: block;
+      margin-bottom: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #2196F3;
+      color: white;
       font-size: 14px;
-      font-weight: 500;
-      transition: all var(--transition-speed) ease;
-      text-align: left;
-      display: flex;
-      align-items: center;
+      cursor: pointer;
     }
     button:hover {
-      background: var(--button-hover);
-      border-color: var(--primary-color);
+      background: #1976D2;
     }
     button.active {
-      background: var(--primary-color);
-      border-color: var(--primary-color);
+      background: #0D47A1;
     }
   </style>
 </head>
 <body>
   <div id="menu">
-    <div class="menu-title" style="color:white;font-weight:bold;margin-bottom:10px;">Escenas Disponibles</div>
-    <button onclick="cambiarImagen('Aula_11.jpg')">Aula 11</button>
-    <button onclick="cambiarImagen('Biblioteca.jpg')">Biblioteca</button>
-    <button onclick="cambiarImagen('Cafetería_.jpg')">Cafetería</button>
-    <button onclick="cambiarImagen('Centro_computo.jpg')">Centro de Cómputo</button>
-    <button onclick="cambiarImagen('Domo.jpg')">Domo</button>
-    <button onclick="cambiarImagen('Explanada.jpg')">Explanada</button>
+    <strong style="color:white;">Escenas Disponibles</strong><br><br>
+    <button onclick="cambiarImagen('escaleras.jpg')">Escaleras</button>
+    <button onclick="cambiarImagen('edificio_h.jpg')">Edificio H</button> 
     <button onclick="cambiarImagen('Exterior_de_posgrado.jpg')">Exterior Posgrado</button>
-    <button onclick="cambiarImagen('Interior_de_posgrado.jpg')">Interior Posgrado</button>
     <button onclick="cambiarImagen('Lab_Bioquimica.jpg')">Lab. Bioquímica</button>
     <button onclick="cambiarImagen('Lab_Electro.jpg')">Lab. Electromecánica</button>
-    <button onclick="cambiarImagen('Principal.jpg')">Edificio principal</button>
+    <button onclick="cambiarImagen('Principal.jpg')">Edificio Principal</button>
+    <button onclick="cambiarImagen('Aula_11.jpg')">Aula 11</button>
+    <button onclick="cambiarImagen('Biblioteca.jpg')">Biblioteca</button>
     <button onclick="cambiarImagen('Sala_A.jpg')">Sala A</button>
+    <button onclick="cambiarImagen('Explanada.jpg')">Explanada 1</button>
+    <button onclick="cambiarImagen('Explanada_2.jpg')">Explanada 2</button>
+    <button onclick="cambiarImagen('Interior_de_posgrado.jpg')">Interior Posgrado</button>
+    <button onclick="cambiarImagen('Domo.jpg')">Domo</button>
     <button onclick="cambiarImagen('campo_futbol.jpg')">Campo de Fútbol</button>
-    <button onclick="cambiarImagen('edificio_h.jpg')">Edificio H</button>
-    <button onclick="cambiarImagen('escaleras.jpg')">Escaleras</button>
-    <button onclick="cambiarImagen('estacionamiento_maestros.jpg')">Estac. Maestros</button>
+    <button onclick="cambiarImagen('Centro_computo.jpg')">Centro de Cómputo</button>
+    <button onclick="cambiarImagen('Estacionamiento_maestros.jpg')">Estac. Maestros</button>
+    <button onclick="cambiarImagen('Cafetería_.jpg')">Cafetería</button>
+    <button onclick="cambiarImagen('Creadores.jpg')">Autores</button>
   </div>
 
   <a-scene>
+    <!-- Cámara y controles -->
     <a-entity id="rig" movement-controls="fly: true; speed: 0.5">
-      <a-entity id="camera" position="0 1.6 0" camera look-controls="reverseMouseDrag: true">
-        <a-entity cursor="fuse: false; rayOrigin: mouse"
+      <a-entity camera look-controls position="0 1.6 0">
+        <a-entity cursor="rayOrigin: mouse"
                   raycaster="objects: .clickable"
                   position="0 0 -1"
                   geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
@@ -99,21 +79,21 @@
     </a-entity>
 
     <!-- Imagen de inicio -->
-    <a-sky id="panorama" src="Aula_11.jpg" rotation="0 -130 0"></a-sky>
+    <a-sky id="panorama" src="escaleras.jpg" rotation="0 -130 0"></a-sky>
 
-    <!-- Controladores para VR -->
-    <a-entity id="leftHand" oculus-touch-controls="hand: left"></a-entity>
-    <a-entity id="rightHand" oculus-touch-controls="hand: right"></a-entity>
+    <!-- Manos para VR -->
+    <a-entity oculus-touch-controls="hand: left"></a-entity>
+    <a-entity oculus-touch-controls="hand: right"></a-entity>
   </a-scene>
 
   <script>
     function cambiarImagen(src) {
       document.getElementById('panorama').setAttribute('src', src);
       const buttons = document.querySelectorAll('button');
-      buttons.forEach(button => {
-        button.classList.remove('active');
-        if (button.getAttribute('onclick').includes(src)) {
-          button.classList.add('active');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('onclick').includes(src)) {
+          btn.classList.add('active');
         }
       });
     }
